@@ -1,33 +1,180 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --title: #c08e04;
+  --text: #0e0e0e;
+  --bg: #f0f0f0;
+  --main: #c08e04;
+  --contrast: #fffcdb;
+  --overlay: rgba(0, 0, 0, 0.5);
 }
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
-
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  padding-top: 120px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  gap: 1rem;
+}
+.orizontal {
+  flex-direction: row;
+  max-width: 80rem;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2rem;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+.paginatie {
+  max-width: 100%;
+  gap: 2rem;
+  border-radius: 0.3rem;
+  justify-content: flex-start;
+  gap: 0.5rem;
+}
+
+.box {
+  width: 25px;
+  height: 25px;
+  border: 1px solid;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.3rem;
+}
+.is-active {
+  border-color: var(--main);
+  color: var(--contrast);
+  background-color: var(--main);
+}
+.is-inactive {
+  border-color: var(--main);
+  color: var(--main);
+  background-color: var(--contrast);
+}
+.categorie {
+  padding-bottom: 2rem;
+}
+/* articol */
+.containerArticol {
+  width: 100%;
+  max-width: 80rem;
+  padding: 1rem 0;
+}
+
+.image {
+  width: 100%;
+  height: 500px;
+  object-fit: contain;
+}
+
+.horizontal-stack {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+}
+
+.horizontal-divider {
+  display: inline-block;
+  height: 25px;
+  border-left: 2px solid;
+  border-color: #ccc;
+  margin: 0 1rem;
+}
+
+.info-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.share-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.bold-text {
+  font-weight: bold;
+}
+
+.heading {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+}
+
+.text-content {
+  white-space: pre-wrap;
+}
+
+.modal {
+  background: #333;
+  color: white;
+}
+
+.report-button {
+  color: red;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.form-control {
+  border: 1px solid #ccc;
+}
+.articolTextArea > a {
+  color: blue;
+  text-decoration: underline;
+}
+@media screen and (max-width: 40rem) {
+  .paginatie {
+    justify-content: center;
   }
+  .orizontal {
+    max-width: 100%;
+    justify-content: center;
+  }
+}
+.signika-light {
+  font-family: 'Signika', sans-serif !important;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+}
+.signika-regular {
+  font-family: 'Signika', sans-serif !important;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+.signika-medium {
+  font-family: 'Signika', sans-serif !important;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
+.signika-semibold {
+  font-family: 'Signika', sans-serif !important;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+}
+.signika-bold {
+  font-family: 'Signika', sans-serif !important;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
 }
