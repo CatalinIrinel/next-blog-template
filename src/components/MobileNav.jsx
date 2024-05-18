@@ -12,10 +12,10 @@ const MobileNav = ({ navbar }) => {
     <Stack
       className="mobileNav"
       display={isDesktop ? 'none' : 'flex'}
-      w={'350px'}
+      w={'280px'}
       top={0}
       transition={'all .8s ease-in-out'}
-      right={isOpen ? 0 : '-360px'}
+      right={isOpen ? 0 : '-300px'}
       position={'fixed'}
       zIndex={10001}
       bg={'main'}
@@ -27,7 +27,7 @@ const MobileNav = ({ navbar }) => {
     >
       <HStack w={'full'} justifyContent={'flex-end'}>
         {' '}
-        <CloseIcon color={'contrast'} fontSize={'1.5rem'} onClick={toggle} />
+        <CloseIcon fontSize={'1.5rem'} onClick={toggle} />
       </HStack>
       {navbar.items.map((item) => (
         <Link onClick={toggle} key={item.name} href={item.link}>

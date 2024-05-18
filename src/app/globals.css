@@ -12,7 +12,7 @@
   --overlay: rgba(0, 0, 0, 0.5);
 }
 body {
-  padding-top: 120px;
+  padding-top: 100px;
   width: 100%;
   display: flex;
   align-items: center;
@@ -134,6 +134,9 @@ body {
 
 .form-control {
   border: 1px solid #ccc;
+}
+.articolTextArea {
+  white-space: pre-wrap;
 }
 .articolTextArea > a {
   color: blue;

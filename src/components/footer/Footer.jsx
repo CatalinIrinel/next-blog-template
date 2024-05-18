@@ -14,6 +14,7 @@ const Footer = ({ footer, navbar }) => {
       bg={'main'}
       color={'contrast'}
       gap={'2rem'}
+      boxShadow={'0 0 .6rem rgba(0,0,0,0.3)'}
     >
       <HStack
         w={'full'}
@@ -23,8 +24,12 @@ const Footer = ({ footer, navbar }) => {
         flexWrap={'wrap'}
         gap={{ base: '2rem', lg: 0 }}
       >
-        <Stack>
-          <Image w={'200px'} src={footer.logo.image} alt={footer.logo.name} />
+        <Stack alignItems={{ base: 'center', lg: 'flex-start' }}>
+          <Image
+            w={'200px'}
+            src={process.env.NEXT_PUBLIC_LOGO}
+            alt={process.env.NEXT_PUBLIC_NUME_ZIAR}
+          />
           <Heading as={'h2'} fontSize={'1.5rem'}>
             {footer.logo.slogan}
           </Heading>
@@ -81,7 +86,18 @@ const Footer = ({ footer, navbar }) => {
       </HStack>
       <Divider />
       <HStack>
-        <Text>Creat de Digidev Innotech S.R.L</Text>
+        <Text>
+          Creat de{' '}
+          <Link
+            textDecoration={'underline'}
+            target="_blank"
+            aria-label="digidev innotech"
+            rel="noreferrer"
+            href={footer.creator.link}
+          >
+            {footer.creator.text} S.R.L
+          </Link>
+        </Text>
         <Text>
           <strong>&#9400; {new Date().getFullYear()}</strong>
         </Text>

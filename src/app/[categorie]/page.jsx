@@ -4,21 +4,30 @@ import PageHeader from '@/components/PageHeader';
 import ArticleCard from '@/components/ArticleCard';
 import Link from 'next/link';
 
+const api =
+  process.env.NODE_ENV === 'production'
+    ? 'https://api.voxpress.ro'
+    : 'http://localhost:5000';
+const titluPagina = process.env.NEXT_PUBLIC_NUME_ZIAR;
 export async function generateMetadata({ params }) {
   const { categorie } = params;
 
-  const titluPagina = 'Click Ronews';
-  const link = titluPagina.split(' ').join('').toLowerCase();
-  const currentUrl = `https://${link}/${categorie}`;
+  const currentUrl = `${process.env.NEXT_PUBLIC_LINK}/${categorie}`;
   const descriereSeo = ` Bine ați venit la ${titluPagina}, destinația ta principală pentru știri online. Acoperim o gamă variată de subiecte, inclusiv politică, economie, cultură și monden. Cu articole proaspete și informații de ultimă oră, suntem ca un ziar digital în palma ta. Indiferent de interesul tău, vei găsi ceva care să te captiveze în blogul nostru. Cu o echipă dedicată de jurnaliști și analiști, ne străduim să aducem cele mai relevante și exacte informații direct pe ecranul tău.`;
-  const pozaSeo = '/images/bgPsCategorii.png';
+  const pozaSeo = process.env.NEXT_PUBLIC_CATEG_IMG;
 
   return {
+    icons: {
+      icon: process.env.NEXT_PUBLIC_ICON,
+    },
     title: `${titluPagina} - ${
       categorie.charAt(0).toUpperCase() + categorie.slice(1)
     }`,
     description: descriereSeo,
     keywords: 'stiri, online, romania, ziar online, ziar, monden, politica',
+    authors: [{ name: 'Catalin Istratoae' }],
+    publisher: 'Catalin Istratoae',
+    creator: 'Catalin Istratoae',
     alternates: {
       canonical: currentUrl,
     },
@@ -26,8 +35,10 @@ export async function generateMetadata({ params }) {
       siteName: titluPagina,
       url: currentUrl,
       type: 'website',
-      title: `${titluPagina} - ${categorie}`,
-      image: ['/images/bgPsCategorii.png'],
+      title: `${titluPagina} - ${
+        categorie.charAt(0).toUpperCase() + categorie.slice(1)
+      }`,
+      images: [{ url: pozaSeo }],
       description: descriereSeo,
       hashtag: `#${categorie}`,
       locale: 'ro_RO',
@@ -35,17 +46,17 @@ export async function generateMetadata({ params }) {
     twitter: {
       card: 'summary',
       site: currentUrl,
-      title: `${titluPagina} - ${categorie}`,
+      title: `${titluPagina} - ${
+        categorie.charAt(0).toUpperCase() + categorie.slice(1)
+      }`,
       description: descriereSeo,
-      image: ['/images/bgPsCategorii.png'],
-      domain: `https://${link}.ro`,
+      images: [{ url: pozaSeo }],
+      domain: process.env.NEXT_PUBLIC_LINK,
     },
   };
 }
 
 const Cateogrie = async ({ searchParams, params }) => {
-  const dev = true;
-  const api = dev ? 'https://api.voxpress.ro' : 'http://localhost:5000';
   const { page } = searchParams;
   const { categorie } = params;
 

@@ -66,7 +66,7 @@ const CardArea = ({ category, articole }) => {
                 boxShadow={'none'}
                 border={'none'}
               >
-                <Link href={`/${item.categorie}/${item.slug}id=${item._id}`}>
+                <Link href={`/${item.categorie}/${item.slug}`}>
                   <CardHeader overflow={'hidden'}>
                     <Image
                       loading="lazy"
@@ -97,7 +97,7 @@ const CardArea = ({ category, articole }) => {
                       </Tooltip>
                     </HStack>
                     <Heading
-                      color={'main'}
+                      color={'title'}
                       as={'h3'}
                       fontSize={{ base: '1rem', lg: '2rem' }}
                       className="signika-bold"
@@ -111,9 +111,7 @@ const CardArea = ({ category, articole }) => {
                       whiteSpace={'nowrap'}
                       className="signika-regular"
                     >
-                      {item.continut.map((item) =>
-                        Parser(item.data.text + '\n\n')
-                      )}
+                      {Parser(item.continut[0].data.text + '\n\n')}
                     </Text>
                   </CardBody>
                   <CardFooter gap={'2rem'}>
@@ -138,10 +136,9 @@ const CardArea = ({ category, articole }) => {
               {categorie.slice(1, 4).map((articol) => (
                 <Link
                   key={articol._id}
-                  href={`/${articol.categorie}/${articol.slug}?id=${articol._id}`}
+                  href={`/${articol.categorie}/${articol.slug}`}
                 >
                   <Card
-                    minH={'500px'}
                     maxW="350px"
                     bg={'none'}
                     boxShadow={'none'}
@@ -160,7 +157,7 @@ const CardArea = ({ category, articole }) => {
                         <Heading
                           className="signika-bold"
                           as={'h3'}
-                          color={'main'}
+                          color={'title'}
                           fontSize={{ base: '1rem', lg: '1.5rem' }}
                         >
                           {articol.titlu.slice(0, 111) + '...'}
@@ -172,9 +169,7 @@ const CardArea = ({ category, articole }) => {
                           textOverflow={'ellipsis'}
                           whiteSpace={'nowrap'}
                         >
-                          {articol.continut.map((item) =>
-                            Parser(item.data.text + '\n\n')
-                          )}
+                          {Parser(articol.continut[0].data.text + '\n\n')}
                         </Text>
                       </Stack>
                     </CardBody>

@@ -1,13 +1,7 @@
 'use client';
 
 import { Link } from '@chakra-ui/next-js';
-import {
-  Button,
-  Container,
-  Heading,
-  Stack,
-  Text,
-} from '@chakra-ui/react';
+import { Button, Container, Heading, Stack, Text } from '@chakra-ui/react';
 
 const Cta = () => {
   return (
@@ -17,7 +11,8 @@ const Cta = () => {
       py={{ base: '1rem', md: '2rem' }}
       px={{ base: '1rem', lg: '3rem' }}
       bg={'main'}
-      color={'titleDark'}
+      color={'contrast'}
+      boxShadow={'0 0 .6rem rgba(0,0,0,0.2)'}
     >
       <Stack
         spacing={{ base: '4', md: '5' }}
@@ -42,11 +37,7 @@ const Cta = () => {
             <Button variant="secondary">Află mai multe</Button>
           </Link>
           <Link href="https://app.voxpress.ro/register">
-            <Button
-              bg={'contrast'}
-              color={'text'}
-              _hover={{ bg: 'contrastDark' }}
-            >
+            <Button bg={'bg'} color={'text'} _hover={{ bg: 'contrastDark' }}>
               Începe acum
             </Button>
           </Link>

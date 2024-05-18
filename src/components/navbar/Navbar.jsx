@@ -17,18 +17,24 @@ const Navbar = ({ navbar }) => {
   return (
     <HStack
       w={'full'}
+      h={'100px'}
       justifyContent={'space-between'}
       px={{ base: '1rem', lg: '3rem' }}
       py={'1rem'}
       bg={'main'}
-      color={'titleDark'}
+      color={'contrast'}
       position={'fixed'}
       top={0}
       left={0}
+      boxShadow={'0 0 .6rem rgba(0,0,0,0.3)'}
       zIndex={1000}
     >
       <Link href="/">
-        <Image w={'150px'} src={navbar.logo.image} alt={'nume ziar'} />
+        <Image
+          w={{ base: '140px', lg: '180px' }}
+          src={process.env.NEXT_PUBLIC_LOGO}
+          alt={process.env.NEXT_PUBLIC_NUME_ZIAR}
+        />
       </Link>
       <HStack gap={'2rem'}>
         {isDesktop ? (

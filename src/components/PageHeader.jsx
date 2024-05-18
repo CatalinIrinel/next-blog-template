@@ -25,14 +25,15 @@ const PageHeader = ({ titlu }) => {
         h={{ base: '200px', lg: '30vh' }}
         w={'full'}
         objectFit={'cover'}
-        src={'/images/6.webp'}
+        objectPosition={'center'}
+        src={process.env.NEXT_PUBLIC_PAGE_HEADER}
         alt={'nume ziar'}
       />
       <Heading
         as={'h1'}
         zIndex={3}
         textTransform={'uppercase'}
-        color={'main'}
+        color={'bg'}
         fontSize={{ base: '2rem', lg: '4rem' }}
       >
         {titlu}

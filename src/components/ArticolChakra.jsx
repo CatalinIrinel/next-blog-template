@@ -23,6 +23,8 @@ import {
   Textarea,
   Tooltip,
   Divider,
+  Card,
+  CardBody,
 } from '@chakra-ui/react';
 import { FaEye, FaExclamationTriangle } from 'react-icons/fa';
 import { GrUpdate, GrUpload } from 'react-icons/gr';
@@ -36,8 +38,11 @@ import {
 import axios from 'axios';
 import Parser from 'html-react-parser';
 
-const dev = true;
-const api = dev ? 'https://api.voxpress.ro' : 'http://localhost:5000';
+const api =
+  process.env.NODE_ENV === 'production'
+    ? 'https://api.voxpress.ro'
+    : 'http://localhost:5000';
+
 const increaseViews = async (articol) => {
   try {
     await axios.put(`${api}/api/articol/ziare/views-five/${articol._id}`, {
@@ -50,10 +55,9 @@ const increaseViews = async (articol) => {
 const ArticolChakra = ({ articol }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const titluPagina = 'Click Ronews';
-  const link = titluPagina.split(' ').join('').toLowerCase();
   const currentUrl =
-    articol && `https://${link}/${articol.categorie}/${articol.slug}`;
+    articol &&
+    `${process.env.NEXT_PUBLIC_LINK}/${articol.categorie}/${articol.slug}`;
   // report articol area
   const [motivReport, setMotivReport] = useState('');
   const [categorieReport, setCategorieReport] = useState('');
@@ -98,13 +102,16 @@ const ArticolChakra = ({ articol }) => {
   return (
     <>
       <Stack w={'full'} maxW={{ base: 'full', lg: '80rem' }}>
-        <Image
-          w={'full'}
-          h={{ base: '300px', lg: '500px' }}
-          objectFit={'contain'}
-          src={articol && articol.pozaCoperta[0].src}
-          alt={articol && articol.descriereCoperta}
-        />
+        <Stack alignItems={'center'}>
+          <Image
+            w={'full'}
+            h={{ base: '300px', lg: '500px' }}
+            objectFit={'contain'}
+            src={articol && articol.pozaCoperta[0].src}
+            alt={articol && articol.descriereCoperta}
+          />
+          <Text color={'gray'}>{articol.descriereCoperta}</Text>
+        </Stack>
         <Stack w={'full'} px={{ base: '1rem', lg: 0 }} pb={'2rem'}>
           <HStack
             w={'full'}
@@ -155,12 +162,12 @@ const ArticolChakra = ({ articol }) => {
             <HStack flexWrap={'wrap'} flexDir={{ base: 'column', lg: 'row' }}>
               <Tooltip label={'Share facebook'}>
                 <FacebookShareButton className="shareButton" url={currentUrl}>
-                  <FacebookIcon />
+                  <FacebookIcon size={48} />
                 </FacebookShareButton>
               </Tooltip>
               <Tooltip label={'Share Whatsapp'}>
                 <WhatsappShareButton className="shareButton" url={currentUrl}>
-                  <WhatsappIcon />
+                  <WhatsappIcon size={48} />
                 </WhatsappShareButton>
               </Tooltip>
               <Tooltip label={'Report articol'}>
@@ -182,14 +189,35 @@ const ArticolChakra = ({ articol }) => {
           <Heading as={'h1'} mb={'2rem'} className="signika-bold">
             {articol && articol.titlu}
           </Heading>
-          <Text
-            whiteSpace={'pre-wrap'}
-            className="signika-regular articolTextArea"
-          >
+          <div className="signika-regular articolTextArea">
             {articol &&
               articol.continut.map((item) => Parser(item.data.text + '\n\n'))}
-          </Text>
+          </div>
+          {articol.sursaCoperta && (
+            <Text>Sursa imagine: {articol.sursaCoperta}</Text>
+          )}
         </Stack>
+        <HStack
+          w={'full'}
+          alignItems={'center'}
+          justifyContent={'center'}
+          px={'2rem'}
+          gap={'1rem'}
+        >
+          {articol.pozeArticol.length > 0 &&
+            articol.pozeArticol.map((item, index) => (
+              <Card key={index} w={'full'} maxW={'37rem'}>
+                <Image
+                  maxW={'35rem'}
+                  src={item.src}
+                  alt={item.descriereImagine}
+                />
+                <CardBody>
+                  <Text color={'gray'}>{item.descriereImagine}</Text>
+                </CardBody>
+              </Card>
+            ))}
+        </HStack>
       </Stack>
       {/* modal area */}
       <Modal isOpen={isOpen} onClose={onClose}>

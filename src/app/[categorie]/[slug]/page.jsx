@@ -1,25 +1,30 @@
 import axios from 'axios';
 import ArticolChakra from '@/components/ArticolChakra';
 
-export async function generateMetadata({ params, searchParams }) {
+const api =
+  process.env.NODE_ENV === 'production'
+    ? 'https://api.voxpress.ro'
+    : 'http://localhost:5000';
+const titluPagina = process.env.NEXT_PUBLIC_NUME_ZIAR;
+
+export async function generateMetadata({ params }) {
   const { categorie, slug } = params;
-  const { id } = searchParams;
-  const dev = true;
-  const api = dev ? 'https://api.voxpress.ro' : 'http://localhost:5000';
   // This is an example fetch; in practice, you'd get data from a database or API
-  const response = await axios.get(`${api}/api/articol/ziare/articol?id=${id}`);
+  const response = await axios.get(`${api}/api/articol/ziare/${slug}`);
   const articol = response.data;
 
-  const titluPagina = 'Click Ronews';
   const link = titluPagina.split(' ').join('').toLowerCase();
 
-  const currentUrl = `https://${link}.ro/${categorie}/${slug}`;
+  const currentUrl = `${process.env.NEXT_PUBLIC_LINK}/${categorie}/${slug}`;
   const descriereSeo = articol && `${articol.continut[0].data.text}`;
   const pozaSeo = articol && `${articol.pozaCoperta[0].src}`;
   return {
     title: `${titluPagina} - ${articol.titlu}`,
     description: descriereSeo,
     keywords: articol && articol.etichete.join(','),
+    authors: [{ name: 'Catalin Istratoae' }],
+    publisher: 'Catalin Istratoae',
+    creator: 'Catalin Istratoae',
     alternates: {
       canonical: currentUrl,
     },
@@ -28,7 +33,7 @@ export async function generateMetadata({ params, searchParams }) {
       url: currentUrl,
       type: 'article',
       title: articol && `${titluPagina} - ${articol.titlu.slice(0, 100)}`,
-      image: [pozaSeo],
+      images: [{ url: pozaSeo }],
       description: descriereSeo,
       hashtag: articol && `#${articol.categorie}`,
       locale: 'ro_RO',
@@ -38,19 +43,15 @@ export async function generateMetadata({ params, searchParams }) {
       site: currentUrl,
       title: `${titluPagina} - ${articol.titlu}`,
       description: descriereSeo,
-      image: [pozaSeo],
-      domain: `https://${link}.ro`,
+      images: [{ url: pozaSeo }],
+      domain: process.env.NEXT_PUBLIC_LINK,
     },
   };
 }
 
-const dev = true;
-const api = dev ? 'https://api.voxpress.ro' : 'http://localhost:5000';
-export async function getArticol(id) {
+export async function getArticol(slug) {
   try {
-    const response = await axios.get(
-      `${api}/api/articol/ziare/articol?id=${id}`
-    );
+    const response = await axios.get(`${api}/api/articol/ziare/${slug}`);
 
     return response.data;
   } catch (error) {
@@ -58,9 +59,9 @@ export async function getArticol(id) {
     return null; // Return null if fetching fails
   }
 }
-const Articol = async ({ searchParams }) => {
-  const { id } = searchParams;
-  let articol = await getArticol(id);
+const Articol = async ({ params }) => {
+  const { slug } = params;
+  let articol = await getArticol(slug);
   return (
     <div className="containerArticol">
       <ArticolChakra articol={articol} />

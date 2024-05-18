@@ -4,12 +4,12 @@ export const colorMode = extendTheme({
 });
 export const myTheme = extendTheme({
   colors: {
-    title: '#c08e04',
+    title: '#493085',
     text: '#0e0e0e',
     bg: '#f0f0f0',
-    main: '#c08e04',
+    main: '#493085',
     contrast: '#FFFCDB',
-    overlay: 'rgba(0,0,0,0.5)',
+    overlay: 'rgba(0,0,0,0.3)',
   },
   breakpoints: {
     sm: '40rem', //640px

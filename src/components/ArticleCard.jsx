@@ -36,6 +36,7 @@ const ArticleCard = ({ articol }) => {
               <Heading
                 as={'h3'}
                 size="md"
+                color={'title'}
                 w={'300px'}
                 overflow={'hidden'}
                 textOverflow={'ellipsis'}
@@ -51,9 +52,7 @@ const ArticleCard = ({ articol }) => {
                 textOverflow={'ellipsis'}
                 whiteSpace={'nowrap'}
               >
-                {articol.continut.map((item) =>
-                  Parser(item.data.text + '\n\n')
-                )}
+                {Parser(articol.continut[0].data.text + '\n\n')}
               </Text>
             </Stack>
           </CardBody>
